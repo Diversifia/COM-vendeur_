@@ -1,72 +1,93 @@
-
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DIVERSIFIA - Simulateur Commissions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        background-color: #f8fafc;
-        color: #1e293b;
-        margin: 0;
-      }
-      
-      #app-loader {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: white; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; z-index: 9999;
-      }
-      .loader-spinner {
-        width: 40px; height: 40px; border: 4px solid #f3f3f3;
-        border-top: 4px solid #ff7900; border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-      @media print {
-        .print\:hidden { display: none !important; }
-      }
-    </style>
-    <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@19.0.0",
-    "react-dom": "https://esm.sh/react-dom@19.0.0",
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
-    "recharts": "https://esm.sh/recharts@2.13.0?external=react,react-dom",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@vercel/node": "https://esm.sh/@vercel/node@^5.5.16",
-    "@neondatabase/serverless": "https://esm.sh/@neondatabase/serverless@^1.0.2"
-  }
-}
-</script>
-  <link rel="stylesheet" href="/index.css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    body {background-color: #f6f9fb}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; -webkit-text-stroke: #000000; min-height: 14.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #6d6d6d; -webkit-text-stroke: #6d6d6d}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #6b0001; -webkit-text-stroke: #6b0001}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #fb0007; -webkit-text-stroke: #fb0007}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #0000ff; -webkit-text-stroke: #0000ff}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; -webkit-text-stroke: #000000}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #900112; -webkit-text-stroke: #900112}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #093c94; -webkit-text-stroke: #093c94}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #0f7001; -webkit-text-stroke: #0f7001}
+    span.s1 {font-kerning: none}
+    span.s2 {font-kerning: none; background-color: #fffffe}
+    span.s3 {font-kerning: none; color: #fb0007; background-color: #fffffe; -webkit-text-stroke: 0px #fb0007}
+    span.s4 {font-kerning: none; color: #2a2a2a; background-color: #fffffe; -webkit-text-stroke: 0px #2a2a2a}
+    span.s5 {font-kerning: none; color: #000000; background-color: #fffffe; -webkit-text-stroke: 0px #000000}
+    span.s6 {font-kerning: none; color: #0000ff; background-color: #fffffe; -webkit-text-stroke: 0px #0000ff}
+    span.s7 {font-kerning: none; color: #6b0001; background-color: #fffffe; -webkit-text-stroke: 0px #6b0001}
+    span.s8 {font-kerning: none; color: #093c94; background-color: #fffffe; -webkit-text-stroke: 0px #093c94}
+    span.s9 {font-kerning: none; color: #137646; background-color: #fffffe; -webkit-text-stroke: 0px #137646}
+  </style>
 </head>
-  <body>
-    <div id="app-loader">
-      <div class="loader-spinner mb-4"></div>
-      <p style="font-weight: 700; color: #1e293b; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Système DIVERSIFIA...</p>
-    </div>
-    <div id="root"></div>
-    <script type="module">
-      const observer = new MutationObserver(() => {
-        if (document.querySelector('#root').children.length > 0) {
-          const loader = document.getElementById('app-loader');
-          if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 500);
-          }
-          observer.disconnect();
-        }
-      });
-      observer.observe(document.getElementById('root'), { childList: true });
-    </script>
-  <script type="module" src="/index.tsx"></script>
+<body>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p2"><span class="s2">&lt;!DOCTYPE</span><span class="s3"> html</span><span class="s2">&gt;</span></p>
+<p class="p3"><span class="s4">&lt;</span><span class="s2">html</span><span class="s5"> </span><span class="s3">lang</span><span class="s4">=</span><span class="s6">"fr"</span><span class="s4">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">  </span></span><span class="s4">&lt;</span><span class="s2">head</span><span class="s4">&gt;</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">meta</span><span class="s5"> </span><span class="s2">charset</span><span class="s4">=</span><span class="s6">"UTF-8"</span><span class="s5"> </span><span class="s4">/&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">meta</span><span class="s5"> </span><span class="s3">name</span><span class="s4">=</span><span class="s2">"viewport"</span><span class="s5"> </span><span class="s3">content</span><span class="s4">=</span><span class="s2">"width=device-width, initial-scale=1.0"</span><span class="s5"> </span><span class="s4">/&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">title</span><span class="s4">&gt;</span><span class="s2">DIVERSIFIA - Simulateur Commissions</span><span class="s4">&lt;/</span><span class="s7">title</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">script</span><span class="s5"> </span><span class="s3">src</span><span class="s4">=</span><span class="s2">"https://cdn.tailwindcss.com"</span><span class="s4">&gt;&lt;/</span><span class="s7">script</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">link</span><span class="s5"> </span><span class="s3">href</span><span class="s4">=</span><span class="s2">"https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"</span><span class="s5"> </span><span class="s3">rel</span><span class="s4">=</span><span class="s2">"stylesheet"</span><span class="s4">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s2">style</span><span class="s4">&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span></span><span class="s7">body</span><span class="s2"> {</span></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s3">font-family:</span><span class="s5"> </span><span class="s2">'Plus Jakarta Sans'</span><span class="s5">, </span><span class="s8">sans-serif</span><span class="s5">;</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s2">background-color:</span><span class="s5"> </span><span class="s8">#f8fafc</span><span class="s5">;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">        </span></span><span class="s3">color:</span><span class="s2"> </span><span class="s8">#1e293b</span><span class="s2">;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">        </span></span><span class="s3">margin:</span><span class="s2"> </span><span class="s9">0</span><span class="s2">;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s2"><span class="Apple-converted-space">      </span></span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">      </span></span><span class="s2">#app-loader</span><span class="s5"> {</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s2">position:</span><span class="s5"> </span><span class="s8">fixed</span><span class="s5">; </span><span class="s2">top:</span><span class="s5"> </span><span class="s9">0</span><span class="s5">; </span><span class="s2">left:</span><span class="s5"> </span><span class="s9">0</span><span class="s5">; </span><span class="s2">width:</span><span class="s5"> </span><span class="s9">100%</span><span class="s5">; </span><span class="s2">height:</span><span class="s5"> </span><span class="s9">100%</span><span class="s5">;</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s2">background:</span><span class="s5"> </span><span class="s8">white</span><span class="s5">; </span><span class="s2">display:</span><span class="s5"> </span><span class="s8">flex</span><span class="s5">; </span><span class="s2">flex-direction:</span><span class="s5"> </span><span class="s8">column</span><span class="s5">;</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s2">align-items:</span><span class="s5"> </span><span class="s8">center</span><span class="s5">; </span><span class="s2">justify-content:</span><span class="s5"> </span><span class="s8">center</span><span class="s5">; </span><span class="s2">z-index:</span><span class="s5"> </span><span class="s9">9999</span><span class="s5">;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">      </span></span><span class="s2">.loader-spinner</span><span class="s5"> {</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s2">width:</span><span class="s5"> </span><span class="s9">40px</span><span class="s5">; </span><span class="s2">height:</span><span class="s5"> </span><span class="s9">40px</span><span class="s5">; </span><span class="s2">border:</span><span class="s5"> </span><span class="s9">4px</span><span class="s5"> </span><span class="s8">solid</span><span class="s5"> </span><span class="s8">#f3f3f3</span><span class="s5">;</span></p>
+<p class="p4"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s2">border-top:</span><span class="s5"> </span><span class="s9">4px</span><span class="s5"> </span><span class="s8">solid</span><span class="s5"> </span><span class="s8">#ff7900</span><span class="s5">; </span><span class="s2">border-radius:</span><span class="s5"> </span><span class="s9">50%</span><span class="s5">;</span></p>
+<p class="p8"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s3">animation:</span><span class="s5"> </span><span class="s2">spin</span><span class="s5"> </span><span class="s9">1s</span><span class="s5"> </span><span class="s2">linear</span><span class="s5"> </span><span class="s2">infinite</span><span class="s5">;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span></span><span class="s6">@keyframes</span><span class="s2"> </span><span class="s8">spin</span><span class="s2"> { </span><span class="s9">0%</span><span class="s2"> { </span><span class="s3">transform:</span><span class="s2"> </span><span class="s8">rotate(</span><span class="s9">0deg</span><span class="s8">)</span><span class="s2">; } </span><span class="s9">100%</span><span class="s2"> { </span><span class="s3">transform:</span><span class="s2"> </span><span class="s8">rotate(</span><span class="s9">360deg</span><span class="s8">)</span><span class="s2">; } }</span></p>
+<p class="p1"><span class="s1"></span><br></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span>@</span><span class="s7">media</span><span class="s2"> </span><span class="s7">print</span><span class="s2"> {</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">        </span>.print\:hidden { </span><span class="s3">display:</span><span class="s2"> </span><span class="s8">none</span><span class="s2"> </span><span class="s6">!important</span><span class="s2">; }</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;/</span><span class="s2">style</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">  </span></span><span class="s4">&lt;</span><span class="s7">script</span><span class="s5"> </span><span class="s3">type</span><span class="s4">=</span><span class="s2">"importmap"</span><span class="s4">&gt;</span></p>
+<p class="p6"><span class="s2">{</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">  </span>"imports": {</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"react": "https://esm.sh/react@^19.2.3",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"react-dom/": "https://esm.sh/react-dom@^19.2.3/",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"react/": "https://esm.sh/react@^19.2.3/",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"lucide-react": "https://esm.sh/lucide-react@^0.562.0",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"recharts": "https://esm.sh/recharts@^3.6.0",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"@neondatabase/serverless": "https://esm.sh/@neondatabase/serverless@^1.0.2",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"@vercel/node": "https://esm.sh/@vercel/node@^5.5.16",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"vite": "https://esm.sh/vite@^7.3.1",</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span>"@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p6"><span class="s2">}</span></p>
+<p class="p3"><span class="s4">&lt;/</span><span class="s2">script</span><span class="s4">&gt;</span></p>
+<p class="p3"><span class="s4">&lt;/</span><span class="s2">head</span><span class="s4">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">  </span></span><span class="s4">&lt;</span><span class="s2">body</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">div</span><span class="s5"> </span><span class="s3">id</span><span class="s4">=</span><span class="s2">"app-loader"</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">      </span></span><span class="s4">&lt;</span><span class="s7">div</span><span class="s5"> </span><span class="s3">class</span><span class="s4">=</span><span class="s2">"loader-spinner mb-4"</span><span class="s4">&gt;&lt;/</span><span class="s7">div</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">      </span></span><span class="s4">&lt;</span><span class="s7">p</span><span class="s5"> </span><span class="s3">style</span><span class="s4">=</span><span class="s2">"font-weight: 700; color: #1e293b; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;"</span><span class="s4">&gt;</span><span class="s5">Système DIVERSIFIA...</span><span class="s4">&lt;/</span><span class="s7">p</span><span class="s4">&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;/</span><span class="s7">div</span><span class="s4">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">div</span><span class="s5"> </span><span class="s3">id</span><span class="s4">=</span><span class="s2">"root"</span><span class="s4">&gt;&lt;/</span><span class="s7">div</span><span class="s4">&gt;</span></p>
+<p class="p9"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s2">&lt;!-- Point d'entrée pour l'application Vite --&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s4">&lt;</span><span class="s7">script</span><span class="s5"> </span><span class="s3">type</span><span class="s4">=</span><span class="s2">"module"</span><span class="s5"> </span><span class="s3">src</span><span class="s4">=</span><span class="s2">"/index.tsx"</span><span class="s4">&gt;&lt;/</span><span class="s7">script</span><span class="s4">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">  </span></span><span class="s4">&lt;/</span><span class="s2">body</span><span class="s4">&gt;</span></p>
+<p class="p3"><span class="s4">&lt;/</span><span class="s2">html</span><span class="s4">&gt;</span></p>
+<p class="p1"><span class="s1"></span><br></p>
 </body>
 </html>
