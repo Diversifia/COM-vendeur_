@@ -1,0 +1,5 @@
+{
+  "name": "Simulateur Commissions Orange",
+  "description": "Outil complet de simulation de salaire et commissions pour la force de vente, basé sur la structure de rémunération Orange Maroc.",
+  "requestFramePermissions": []
+}
