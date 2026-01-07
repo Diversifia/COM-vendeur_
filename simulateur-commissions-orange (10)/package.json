@@ -1,0 +1,14 @@
+
+{
+  "name": "diversifia-simulateur",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.15",
+    "@vercel/node": "^5.0.0",
+    "lucide-react": "^0.460.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.13.0"
+  }
+}
